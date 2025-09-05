@@ -665,8 +665,10 @@ namespace Quickstarts.HistoricalAccessServer
             builder.Append("</Value>");
 
             XmlDocument document = new XmlDocument { XmlResolver = null };
-            XmlReader reader = XmlReader.Create(builder.ToString(), new XmlReaderSettings() { XmlResolver = null });
-            document.Load(reader);
+            using (XmlReader reader = XmlReader.Create(builder.ToString(), new XmlReaderSettings() { XmlResolver = null }))
+            {
+                document.Load(reader);
+            }
             try
             {
                 XmlDecoder decoder = new XmlDecoder(document.DocumentElement, context);

@@ -264,7 +264,7 @@ namespace Opc.Ua.Gds.Server
             }
 
             // start the status thread
-            status = Task.Run(new Action(StatusThread));
+            status = Task.Run(new Action(StatusThreadAsync));
 
             // print notification on session events
             server.CurrentInstance.SessionManager.SessionActivated += EventStatus;
@@ -335,7 +335,7 @@ namespace Opc.Ua.Gds.Server
             }
         }
 
-        private async void StatusThread()
+        private async void StatusThreadAsync()
         {
             while (server != null)
             {

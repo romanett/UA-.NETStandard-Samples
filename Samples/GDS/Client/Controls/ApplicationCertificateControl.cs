@@ -102,7 +102,7 @@ namespace Opc.Ua.Gds.Client
                         id.StoreType = CertificateStoreIdentifier.DetermineStoreType(id.StorePath);
                         id.SubjectName = application.CertificateSubjectName.Replace("localhost", Utils.GetHostName());
 
-                        certificate = await id.FindAsync(true);
+                        certificate = await id.FindAsync(true, ct: ct);
                     }
                 }
             }
@@ -133,7 +133,7 @@ namespace Opc.Ua.Gds.Client
                                     SubjectName = "CN=" + url.DnsSafeHost
                                 };
 
-                                certificate = await id.FindAsync();
+                                certificate = await id.FindAsync(ct: ct);
                             }
                         }
                     }
@@ -188,7 +188,7 @@ namespace Opc.Ua.Gds.Client
                 var trustList = await m_gds.ReadTrustListAsync(trustListId);
                 bool applyChanges = await m_server.UpdateTrustListAsync(trustList);
 
-                byte[] unusedNonce = new byte[0];
+                byte[] unusedNonce = Array.Empty<byte>();
                 byte[] certificateRequest = await m_server.CreateSigningRequestAsync(
                     NodeId.Null,
                     m_server.ApplicationCertificateType,
@@ -488,7 +488,7 @@ namespace Opc.Ua.Gds.Client
                         privateKeyPFX = x509.Export(X509ContentType.Pfx);
                     }
 
-                    byte[] unusedPrivateKey = new byte[0];
+                    byte[] unusedPrivateKey = Array.Empty<byte>();
                     bool applyChanges = await m_server.UpdateCertificateAsync(
                         NodeId.Null,
                         m_server.ApplicationCertificateType,

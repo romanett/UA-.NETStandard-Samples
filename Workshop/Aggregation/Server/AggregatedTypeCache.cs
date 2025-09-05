@@ -49,7 +49,7 @@ namespace AggregationServer
         /// <summary>
         /// Fetches the event type information from the AE server.
         /// </summary>
-        public async Task LoadTypes(Opc.Ua.Client.ISession client, IServerInternal server, NamespaceMapper mapper, CancellationToken ct = default)
+        public async Task LoadTypesAsync(Opc.Ua.Client.ISession client, IServerInternal server, NamespaceMapper mapper, CancellationToken ct = default)
         {
             TypeNodes = new NodeIdDictionary<ReferenceDescription>();
             await LoadTypesAsync(client, server, mapper, Opc.Ua.ObjectTypeIds.BaseObjectType, ct);

@@ -931,7 +931,7 @@ namespace Quickstarts
             {
                 Stream istrm = Assembly.GetExecutingAssembly().GetManifestResourceStream("Quickstarts.DefaultData.xml");
                 XmlSerializer serializer = new XmlSerializer(typeof(TestData));
-                XmlReader reader = XmlReader.Create(istrm, new XmlReaderSettings() { XmlResolver = null });
+                using XmlReader reader = XmlReader.Create(istrm, new XmlReaderSettings() { XmlResolver = null });
                 m_testData = (TestData)serializer.Deserialize(reader);
                 m_testData.ProcessedDataSets = Array.Empty<ProcessedDataSetType>();
                 GenerateData();
@@ -1126,7 +1126,7 @@ namespace Quickstarts
         {
             try
             {
-                XmlReader reader = XmlReader.Create("TestData.xml");
+                using XmlReader reader = XmlReader.Create("TestData.xml", new XmlReaderSettings() { XmlResolver = null });
                 XmlSerializer serializer = new XmlSerializer(typeof(TestData));
                 m_testData = (TestData)serializer.Deserialize(reader);
                 reader.Close();

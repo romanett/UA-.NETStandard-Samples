@@ -260,7 +260,7 @@ namespace Opc.Ua.Gds.Client
                 await m_server.ConnectAsync(endpoint.Description.EndpointUrl);
 
                 await ServerStatusPanel.InitializeAsync(m_server);
-                await CertificatePanel.Initialize(m_configuration, m_gds, m_server, m_registeredApplication, false);
+                await CertificatePanel.InitializeAsync(m_configuration, m_gds, m_server, m_registeredApplication, false);
             }
             catch (Exception exception)
             {
@@ -446,7 +446,7 @@ namespace Opc.Ua.Gds.Client
                 {
                     m_server.DisconnectAsync().GetAwaiter().GetResult();
                     UpdateStatus(true, DateTime.UtcNow, "Disconnected {0}", m_server.Endpoint);
-                    ServerStatusPanel.InitializeAsync(null);
+                    await ServerStatusPanel.InitializeAsync(null);
                 }
             }
             catch (Exception exception)
@@ -516,11 +516,11 @@ namespace Opc.Ua.Gds.Client
             }
         }
 
-        private void TrustListButton_Click(object sender, EventArgs e)
+        private async void TrustListButton_Click(object sender, EventArgs e)
         {
             try
             {
-                TrustListPanel.Initialize(m_gds, m_server, m_registeredApplication, false);
+                await TrustListPanel.Initialize(m_gds, m_server, m_registeredApplication, false);
                 ShowPanel(Panel.TrustList);
             }
             catch (Exception ex)
@@ -529,11 +529,11 @@ namespace Opc.Ua.Gds.Client
             }
         }
 
-        private void HttpsTrustListButton_Click(object sender, EventArgs e)
+        private async void HttpsTrustListButton_Click(object sender, EventArgs e)
         {
             try
             {
-                TrustListPanel.Initialize(m_gds, m_server, m_registeredApplication, true);
+                await TrustListPanel.Initialize(m_gds, m_server, m_registeredApplication, true);
                 ShowPanel(Panel.HttpsTrustList);
             }
             catch (Exception ex)
@@ -600,7 +600,7 @@ namespace Opc.Ua.Gds.Client
                 HttpsTrustListButton.Visible = (e.Application != null && !String.IsNullOrEmpty(e.Application.HttpsTrustListStorePath));
 #endif
                 await CertificatePanel.InitializeAsync(m_configuration, m_gds, m_server, e.Application, false);
-                TrustListPanel.Initialize(m_gds, m_server, e.Application, false);
+                await TrustListPanel.Initialize(m_gds, m_server, e.Application, false);
                 UpdateMainFormHeader();
             }
             catch (Exception ex)

@@ -389,7 +389,7 @@ namespace Opc.Ua.Client.Controls
                 if (type == typeof(System.Xml.XmlElement))
                 {
                     System.Xml.XmlDocument document = new System.Xml.XmlDocument { XmlResolver = null };
-                    XmlReader reader = XmlReader.Create("<Null/>", new XmlReaderSettings() { XmlResolver = null });
+                    using XmlReader reader = XmlReader.Create("<Null/>", new XmlReaderSettings() { XmlResolver = null });
                     document.Load(reader);
                     return document.DocumentElement;
                 }

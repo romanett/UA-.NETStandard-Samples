@@ -401,7 +401,7 @@ namespace Quickstarts.HistoricalAccess.Client
             ShowResults();
         }
 
-        private Task Read(CancellationToken ct = default)
+        private Task ReadAsync(CancellationToken ct = default)
         {
             switch ((ReadType)ReadTypeCB.SelectedItem)
             {
@@ -436,7 +436,7 @@ namespace Quickstarts.HistoricalAccess.Client
                 ResultsLV.Items.Clear();
                 m_result = null;
 
-                Read();
+                ReadAsync();
             }
             catch (Exception exception)
             {
@@ -448,7 +448,7 @@ namespace Quickstarts.HistoricalAccess.Client
         {
             try
             {
-                Read();
+                ReadAsync();
             }
             catch (Exception exception)
             {

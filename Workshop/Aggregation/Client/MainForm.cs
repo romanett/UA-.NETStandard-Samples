@@ -81,7 +81,7 @@ namespace AggregationClient
         /// <summary>
         /// Connects to a server.
         /// </summary>
-        private async void Server_ConnectMI_Click(object sender, EventArgs e)
+        private async void Server_ConnectMI_ClickAsync(object sender, EventArgs e)
         {
             try
             {
@@ -126,7 +126,7 @@ namespace AggregationClient
         /// <summary>
         /// Updates the application after connecting to or disconnecting from the server.
         /// </summary>
-        private async void Server_ConnectComplete(object sender, EventArgs e)
+        private async void Server_ConnectCompleteAsync(object sender, EventArgs e)
         {
             try
             {
@@ -144,7 +144,7 @@ namespace AggregationClient
         /// <summary>
         /// Updates the application after a communicate error was detected.
         /// </summary>
-        private async void Server_ReconnectStarting(object sender, EventArgs e)
+        private async void Server_ReconnectStartingAsync(object sender, EventArgs e)
         {
             try
             {
@@ -159,7 +159,7 @@ namespace AggregationClient
         /// <summary>
         /// Updates the application after reconnecting to the server.
         /// </summary>
-        private async void Server_ReconnectComplete(object sender, EventArgs e)
+        private async void Server_ReconnectCompleteAsync(object sender, EventArgs e)
         {
             try
             {

@@ -163,7 +163,7 @@ namespace Opc.Ua.Client.Controls
         /// <summary>
         /// Updates the value shown in the control.
         /// </summary>
-        public Task UpdateValue(
+        public Task UpdateValueAsync(
             NodeId nodeId,
             uint attributeId,
             string name,

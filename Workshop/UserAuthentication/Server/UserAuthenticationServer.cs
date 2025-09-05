@@ -321,11 +321,13 @@ namespace Quickstarts.UserAuthenticationServer
         {
             var document = new XmlDocument { XmlResolver = null };
             XmlNodeReader reader = null;
-
             try
             {
-                var xml = XmlReader.Create(Encoding.UTF8.GetString(tokenData).Trim(), new XmlReaderSettings() { XmlResolver = null });
-                document.Load(xml);
+                using (var xml = XmlReader.Create(Encoding.UTF8.GetString(tokenData).Trim(), new XmlReaderSettings() { XmlResolver = null }))
+                {
+                    document.Load(xml);
+                }
+
                 reader = new XmlNodeReader(document.DocumentElement);
 
                 SecurityToken securityToken = new WSSecurityTokenSerializer().ReadToken(reader, null);

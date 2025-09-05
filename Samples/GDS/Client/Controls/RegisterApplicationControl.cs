@@ -36,6 +36,7 @@ using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml;
 using System.Xml.Serialization;
 using Opc.Ua.Gds.Client.Controls;
 
@@ -485,7 +486,8 @@ namespace Opc.Ua.Gds.Client
                 using (FileStream reader = File.Open(path, FileMode.Open, FileAccess.Read))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(RegisteredApplication));
-                    application = serializer.Deserialize(reader) as RegisteredApplication;
+                    using XmlReader xml = XmlReader.Create(reader, new XmlReaderSettings() { XmlResolver = null });
+                    application = serializer.Deserialize(xml) as RegisteredApplication;
                 }
 
                 if (application != null)

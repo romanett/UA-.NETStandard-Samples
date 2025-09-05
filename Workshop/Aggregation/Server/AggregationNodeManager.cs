@@ -1422,7 +1422,7 @@ namespace AggregationServer
                 }
 
                 AggregatedTypeCache cache = new AggregatedTypeCache();
-                await cache.LoadTypes(client, Server, m_mapper);
+                await cache.LoadTypesAsync(client, Server, m_mapper);
 
                 lock (Lock)
                 {

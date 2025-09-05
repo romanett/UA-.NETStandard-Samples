@@ -234,8 +234,10 @@ namespace Opc.Ua.Client.Controls
             }
 
             var document = new XmlDocument { XmlResolver = null };
-            var reader = XmlReader.Create(ValueTB.Text, new XmlReaderSettings() { XmlResolver = null });
-            document.Load(reader);
+            using (var reader = XmlReader.Create(ValueTB.Text, new XmlReaderSettings() { XmlResolver = null }))
+            {
+                document.Load(reader);
+            }
 
             // find the first element.
             XmlElement element = null;

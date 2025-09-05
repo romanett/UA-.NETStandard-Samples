@@ -157,7 +157,7 @@ namespace AggregationServer
                     m_references = results[0].References;
                     m_continuationPoint = results[0].ContinuationPoint;
 
-                    reference = await NextChild(ct);
+                    reference = await NextChildAsync(ct);
 
                     if (reference != null)
                     {
@@ -168,7 +168,7 @@ namespace AggregationServer
 
             if (m_stage == Stage.References)
             {
-                reference = await NextChild(ct);
+                reference = await NextChildAsync(ct);
 
                 if (reference != null)
                 {
@@ -224,7 +224,7 @@ namespace AggregationServer
 
             if (m_stage == Stage.Notifiers)
             {
-                reference = await NextChild(ct);
+                reference = await NextChildAsync(ct);
 
                 if (reference != null)
                 {
@@ -243,7 +243,7 @@ namespace AggregationServer
         /// <summary>
         /// Fetches the next batch of references.
         /// </summary>
-        private async Task<bool> BrowseNext(CancellationToken ct = default)
+        private async Task<bool> BrowseNextAsync(CancellationToken ct = default)
         {
             if (m_continuationPoint != null)
             {
@@ -326,7 +326,7 @@ namespace AggregationServer
         /// <summary>
         /// Returns the next child.
         /// </summary>
-        private async Task<NodeStateReference> NextChild(CancellationToken ct = default)
+        private async Task<NodeStateReference> NextChildAsync(CancellationToken ct = default)
         {
             // check if a specific browse name is requested.
             if (!QualifiedName.IsNull(base.BrowseName))
@@ -355,7 +355,7 @@ namespace AggregationServer
                             }
                         }
                     }
-                    while (await BrowseNext(ct));
+                    while (await BrowseNextAsync(ct));
                 }
             }
 
@@ -376,7 +376,7 @@ namespace AggregationServer
                             }
                         }
                     }
-                    while (await BrowseNext(ct));
+                    while (await BrowseNextAsync(ct));
                 }
             }
 

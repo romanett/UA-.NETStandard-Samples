@@ -523,7 +523,7 @@ namespace Opc.Ua.Client.Controls
 
                     if (m_EditComplexValueDlg != null && Object.ReferenceEquals(m_EditComplexValueDlg.Tag, monitoredItem))
                     {
-                        await m_EditComplexValueDlg.UpdateValue(monitoredItem.ResolvedNodeId, monitoredItem.AttributeId, null, itemNotification.Value.Value);
+                        await m_EditComplexValueDlg.UpdateValueAsync(monitoredItem.ResolvedNodeId, monitoredItem.AttributeId, null, itemNotification.Value.Value);
                     }
                 }
             }
