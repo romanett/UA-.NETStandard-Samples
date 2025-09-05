@@ -33,6 +33,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 using Opc.Ua.Client;
@@ -52,7 +53,7 @@ namespace Opc.Ua.Sample.Controls
         #endregion
 
         #region Private Fields
-        private Session m_session;
+        private ISession m_session;
         private EventHandler m_SessionClosing;
         #endregion
 

@@ -94,7 +94,7 @@ namespace Opc.Ua.Client.Controls
         /// <summary>
         /// Adds a node to the read request.
         /// </summary>
-        public async void AddNodesAsync(CancellationToken ct, params ReadValueId[] nodesToRead)
+        public async Task AddNodesAsync(CancellationToken ct, params ReadValueId[] nodesToRead)
         {
             if (nodesToRead != null)
             {

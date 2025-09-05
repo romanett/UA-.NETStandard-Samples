@@ -349,7 +349,6 @@ namespace Opc.Ua.Sample.Controls
         {
             try
             {
-
                 BrowseOptionsMI.Enabled = true;
                 ShowReferencesMI.Enabled = true;
                 SelectMI.Visible = m_allowPick;

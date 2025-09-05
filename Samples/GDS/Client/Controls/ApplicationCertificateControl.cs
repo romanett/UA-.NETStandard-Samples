@@ -32,6 +32,7 @@ using System;
 using System.Drawing;
 using System.IO;
 using System.Security.Cryptography.X509Certificates;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
@@ -52,12 +53,13 @@ namespace Opc.Ua.Gds.Client
         private bool m_temporaryCertificateCreated;
         private string m_certificatePassword;
 
-        public async Task Initialize(
+        public async Task InitializeAsync(
             GlobalDiscoveryClientConfiguration configuration,
             GlobalDiscoveryServerClient gds,
             ServerPushConfigurationClient server,
             RegisteredApplication application,
-            bool isHttps)
+            bool isHttps,
+            CancellationToken ct = default)
         {
             m_configuration = configuration;
             m_gds = gds;
