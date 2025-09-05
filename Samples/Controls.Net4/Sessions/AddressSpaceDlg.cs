@@ -50,7 +50,7 @@ namespace Opc.Ua.Sample.Controls
             m_SessionClosing = new EventHandler(Session_Closing);
         }
         #endregion
-        
+
         #region Private Fields
         private Session m_session;
         private EventHandler m_SessionClosing;
@@ -61,23 +61,23 @@ namespace Opc.Ua.Sample.Controls
         /// Displays the address space with the specified view
         /// </summary>
         public void Show(Session session, BrowseViewType viewType, NodeId viewId)
-        {   
-            if (session == null) throw new ArgumentNullException("session");
-            
+        {
+            if (session == null) throw new ArgumentNullException(nameof(session));
+
             if (m_session != null)
             {
                 m_session.SessionClosing -= m_SessionClosing;
             }
 
-            m_session = session;            
+            m_session = session;
             m_session.SessionClosing += m_SessionClosing;
-            
-            BrowseCTRL.SetView(session, viewType, viewId);
+
+            BrowseCTRL.SetViewAsync(session, viewType, viewId);
             Show();
             BringToFront();
         }
         #endregion
-        
+
         private void Session_Closing(object sender, EventArgs e)
         {
             if (Object.ReferenceEquals(sender, m_session))

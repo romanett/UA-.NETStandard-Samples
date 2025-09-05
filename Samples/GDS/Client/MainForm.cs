@@ -2,7 +2,7 @@
  * Copyright (c) 2005-2019 The OPC Foundation, Inc. All rights reserved.
  *
  * OPC Foundation MIT License 1.00
- * 
+ *
  * Permission is hereby granted, free of charge, to any person
  * obtaining a copy of this software and associated documentation
  * files (the "Software"), to deal in the Software without
@@ -11,7 +11,7 @@
  * copies of the Software, and to permit persons to whom the
  * Software is furnished to do so, subject to the following
  * conditions:
- * 
+ *
  * The above copyright notice and this permission notice shall be
  * included in all copies or substantial portions of the Software.
  * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
@@ -70,7 +70,7 @@ namespace Opc.Ua.Gds.Client
             m_server.AdminCredentialsRequired += Server_AdminCredentialsRequired;
             m_server.KeepAlive += Server_KeepAlive;
             m_server.ServerStatusChanged += Server_StatusNotification;
-            m_server.ConnectionStatusChanged += Server_ConnectionStatusChanged;
+            m_server.ConnectionStatusChanged += Server_ConnectionStatusChangedAsync;
 
             RegistrationPanel.InitializeAsync(m_gds, m_server, null, m_configuration).GetAwaiter().GetResult();
 
@@ -114,11 +114,11 @@ namespace Opc.Ua.Gds.Client
             Discovery
         }
 
-        private void Server_ConnectionStatusChanged(object sender, EventArgs e)
+        private async void Server_ConnectionStatusChangedAsync(object sender, EventArgs e)
         {
             if (InvokeRequired)
             {
-                BeginInvoke(new EventHandler(Server_ConnectionStatusChanged), sender, e);
+                BeginInvoke(new EventHandler(Server_ConnectionStatusChangedAsync), sender, e);
                 return;
             }
 
@@ -126,11 +126,11 @@ namespace Opc.Ua.Gds.Client
             {
                 if (m_server.IsConnected)
                 {
-                    ServerStatusPanel.Initialize(m_server);
+                    await ServerStatusPanel.InitializeAsync(m_server);
                 }
                 else
                 {
-                    ServerStatusPanel.Initialize(null);
+                    await ServerStatusPanel.InitializeAsync(null);
                 }
             }
         }
@@ -250,7 +250,7 @@ namespace Opc.Ua.Gds.Client
 
                 await m_server.ConnectAsync(endpoint.Description.EndpointUrl);
 
-                ServerStatusPanel.Initialize(m_server);
+                await ServerStatusPanel.InitializeAsync(m_server);
                 await CertificatePanel.Initialize(m_configuration, m_gds, m_server, m_registeredApplication, false);
             }
             catch (Exception exception)
@@ -437,7 +437,7 @@ namespace Opc.Ua.Gds.Client
                 {
                     m_server.DisconnectAsync().GetAwaiter().GetResult();
                     UpdateStatus(true, DateTime.UtcNow, "Disconnected {0}", m_server.Endpoint);
-                    ServerStatusPanel.Initialize(null);
+                    ServerStatusPanel.InitializeAsync(null);
                 }
             }
             catch (Exception exception)
